@@ -1,0 +1,15 @@
+{"eventVersion":1,"idempotencyKey":"recover-1","scenarioId":"recover","seq":1,"phase":"snapshot","status":"ok","durationMs":10,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"recover-2","scenarioId":"recover","seq":2,"phase":"plan","status":"ok","durationMs":10,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"recover-3","scenarioId":"recover","seq":3,"phase":"rescue","status":"ok","durationMs":10,"objectIds":["rescue"]}
+{"eventVersion":1,"idempotencyKey":"recover-4","scenarioId":"recover","seq":4,"phase":"apply","status":"ok","durationMs":20,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"recover-5","scenarioId":"recover","seq":5,"phase":"verify","status":"ok","durationMs":10,"objectIds":["pre","restored"]}
+{"eventVersion":1,"idempotencyKey":"rollback-1","scenarioId":"rollback","seq":1,"phase":"snapshot","status":"ok","durationMs":10,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"rollback-2","scenarioId":"rollback","seq":2,"phase":"plan","status":"ok","durationMs":10,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"rollback-3","scenarioId":"rollback","seq":3,"phase":"rescue","status":"ok","durationMs":10,"objectIds":["rescue"]}
+{"eventVersion":1,"idempotencyKey":"rollback-4","scenarioId":"rollback","seq":4,"phase":"apply","status":"failed","durationMs":20,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"rollback-5","scenarioId":"rollback","seq":5,"phase":"rollback","status":"ok","durationMs":20,"objectIds":["rollback"]}
+{"eventVersion":1,"idempotencyKey":"rollback-6","scenarioId":"rollback","seq":6,"phase":"verify","status":"ok","durationMs":10,"objectIds":["pre"]}
+{"eventVersion":1,"idempotencyKey":"stale-1","scenarioId":"stale","seq":1,"phase":"snapshot","status":"ok","durationMs":5,"objectIds":["pre"]}
+{"eventVersion":1,"idempotencyKey":"stale-2","scenarioId":"stale","seq":2,"phase":"plan","status":"ok","durationMs":5,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"stale-3","scenarioId":"stale","seq":3,"phase":"mutate","status":"ok","durationMs":5,"objectIds":[]}
+{"eventVersion":1,"idempotencyKey":"stale-4","scenarioId":"stale","seq":4,"phase":"reject-stale","status":"rejected","durationMs":5,"objectIds":[]}

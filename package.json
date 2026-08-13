@@ -1,0 +1,18 @@
+{
+  "name": "dsh-recovery-proof",
+  "version": "0.1.0",
+  "description": "Read-only recovery drill evidence for DeepSeek Harness",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.js",
+  "exports": { ".": "./index.js", "./recovery-proof": "./lib/recovery-proof.mjs" },
+  "bin": { "dsh-recovery-proof": "./bin/dsh-recovery-proof.mjs" },
+  "files": [".codex-plugin/", "index.js", "lib/", "bin/", "cordis.patch.yml", "examples/", "README.md", "README.zh-CN.md", "LICENSE"],
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "peerDependencies": { "@deepseek-ai/dsh-tools": "*" },
+  "peerDependenciesMeta": { "@deepseek-ai/dsh-tools": { "optional": true } },
+  "scripts": { "test": "node --test test/*.test.mjs", "check": "node scripts/check.mjs", "smoke:plugin": "node test/plugin-smoke.mjs" },
+  "engines": { "node": ">=22" },
+  "repository": { "type": "git", "url": "git+https://github.com/dongsheng123132/dsh-recovery-proof.git" },
+  "keywords": ["deepseek-harness", "dsh", "dsh-plugin", "recovery", "rollback", "rto", "evidence"]
+}

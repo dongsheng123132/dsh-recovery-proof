@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "system": { "name": "example-service", "revision": "git:abc123" },
+  "objects": [
+    { "id": "pre", "role": "prestate", "path": "objects/prestate.txt", "sha256": "ed5d901e4682e31bd804aae486fb63c4c6213048acf7656466e7877135e4cce3", "revision": "git:abc123" },
+    { "id": "rescue", "role": "rescue", "path": "objects/rescue.txt", "sha256": "ed5d901e4682e31bd804aae486fb63c4c6213048acf7656466e7877135e4cce3", "revision": "git:abc123" },
+    { "id": "restored", "role": "restored", "path": "objects/restored.txt", "sha256": "0f831f5833e0c49367e9ce0f3425e1532f1710938000c0fbe8b7242e9e7ca342", "revision": "git:def456" },
+    { "id": "rollback", "role": "rollback", "path": "objects/rollback.txt", "sha256": "ed5d901e4682e31bd804aae486fb63c4c6213048acf7656466e7877135e4cce3", "revision": "git:abc123" }
+  ],
+  "scenarios": [
+    { "id": "recover", "kind": "recover", "expectedPhases": ["snapshot", "plan", "rescue", "apply", "verify"], "requiredObjectIds": ["pre", "rescue", "restored"], "maxRtoMs": 5000 },
+    { "id": "rollback", "kind": "failed-apply-rollback", "expectedPhases": ["snapshot", "plan", "rescue", "apply", "rollback", "verify"], "requiredObjectIds": ["pre", "rescue", "rollback"], "maxRtoMs": 5000 },
+    { "id": "stale", "kind": "stale-plan-rejection", "expectedPhases": ["snapshot", "plan", "mutate", "reject-stale"], "requiredObjectIds": ["pre"], "maxRtoMs": 1000 }
+  ]
+}

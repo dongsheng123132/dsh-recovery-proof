@@ -1,0 +1,17 @@
+{
+  "name": "dsh-recovery-proof",
+  "version": "0.1.0",
+  "description": "Read-only recovery drill evidence for DeepSeek Harness",
+  "author": {
+    "name": "hfshfg"
+  },
+  "interface": {
+    "displayName": "DSH Recovery Proof",
+    "shortDescription": "Verify recovery drills without restoring files.",
+    "longDescription": "Checks explicit recovery drill stages, object hashes, rescue and rollback evidence, RTO thresholds and stale-plan handling, then emits a content-addressed report.",
+    "developerName": "hfshfg",
+    "category": "Developer Tools",
+    "capabilities": ["Recovery drill verification", "RTO evidence", "Rollback proof"],
+    "defaultPrompt": "Verify this recovery drill manifest and JSONL evidence without executing any restore operation."
+  }
+}
