@@ -1,5 +1,10 @@
 # DSH Recovery Proof
 
+[![CI](https://github.com/dongsheng123132/dsh-recovery-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/dongsheng123132/dsh-recovery-proof/actions/workflows/ci.yml)
+[![MIT 许可证](https://img.shields.io/github/license/dongsheng123132/dsh-recovery-proof)](LICENSE)
+[![Node.js 22+](https://img.shields.io/badge/Node.js-%E2%89%A522-339933?logo=nodedotjs&logoColor=white)](package.json)
+[![Awesome DSH Plugins](https://img.shields.io/badge/Awesome_DSH-%E5%B7%B2%E9%AA%8C%E8%AF%81%E5%AE%9E%E9%AA%8C-0969da)](https://github.com/dongsheng123132/awesome-dsh-plugins/blob/main/README.zh-CN.md#2origin-%E6%8F%92%E4%BB%B6%E5%AE%9E%E9%AA%8C%E5%AE%A4)
+
 面向 DeepSeek Harness 的只读恢复演练证据核验插件。它不恢复文件、不创建检查点，也不替代 Turn Rewind / Checkpoint Rewind 等恢复执行器；它专门验证外部恢复演练是否留下了可复核证据。
 
 它会核验对象 SHA-256 与 revision、恢复/失败回滚/陈旧计划拒绝的精确阶段顺序、救援副本先于 apply、RTO 阈值，并把缺失或陈旧证据完整披露到内容寻址 JSON 报告。输入中的 secret、token、prompt、chat、content 等字段会被拒绝，对象正文不会进入输出。

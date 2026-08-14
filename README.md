@@ -1,5 +1,10 @@
 # DSH Recovery Proof
 
+[![CI](https://github.com/dongsheng123132/dsh-recovery-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/dongsheng123132/dsh-recovery-proof/actions/workflows/ci.yml)
+[![MIT license](https://img.shields.io/github/license/dongsheng123132/dsh-recovery-proof)](LICENSE)
+[![Node.js 22+](https://img.shields.io/badge/Node.js-%E2%89%A522-339933?logo=nodedotjs&logoColor=white)](package.json)
+[![Awesome DSH Plugins](https://img.shields.io/badge/Awesome_DSH-verified_lab-0969da)](https://github.com/dongsheng123132/awesome-dsh-plugins#2origin-plugin-lab)
+
 A read-only recovery-drill evidence verifier for [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness). It does **not** restore files, create checkpoints, or replace recovery executors such as Turn Rewind or Checkpoint Rewind. It verifies that an external drill left reproducible evidence.
 
 ## What it proves
