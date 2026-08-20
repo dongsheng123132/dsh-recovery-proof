@@ -5,7 +5,7 @@
 [![Node.js 22+](https://img.shields.io/badge/Node.js-%E2%89%A522-339933?logo=nodedotjs&logoColor=white)](package.json)
 [![Awesome DSH Plugins](https://img.shields.io/badge/Awesome_DSH-verified_lab-0969da)](https://github.com/dongsheng123132/awesome-dsh-plugins#2origin-plugin-lab)
 
-A read-only recovery-drill evidence verifier for [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness). It does **not** restore files, create checkpoints, or replace recovery executors such as Turn Rewind or Checkpoint Rewind. It verifies that an external drill left reproducible evidence.
+A read-only recovery-drill evidence verifier for [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness). It does **not** restore files, create checkpoints, or replace recovery executors such as Turn Rewind or Checkpoint Rewind. It verifies that an external drill left reproducible evidence. Version 0.2.0 is also a formal Codex plugin with a proof-only MCP server, and its namespace export is regression-tested against the stock DSH Web Loader.
 
 ## What it proves
 
@@ -24,7 +24,7 @@ dsh plugin install github:dongsheng123132/dsh-recovery-proof
 dsh plugin compose dsh-recovery-proof
 ```
 
-The bundle registers `dsh_recovery_proof_inspect` and `dsh_recovery_proof_verify`.
+The bundle registers `dsh_recovery_proof_inspect` and `dsh_recovery_proof_verify`. The package intentionally exports a Cordis namespace (`name`, `inject`, `apply`) rather than a default function so the stock Loader retains the `tools` injection declaration.
 
 ## CLI
 
@@ -39,6 +39,15 @@ Exit code `0` means the command ran and verification passed, `2` means the evide
 
 See [`examples/basic`](examples/basic). A manifest pins `system.revision`, content-addressed objects, and explicit scenarios with `expectedPhases`, `requiredObjectIds`, and `maxRtoMs`. Events contain only structural facts: unique idempotency key, scenario, sequence, phase, status, duration and object references.
 
+## Codex and proof-only MCP
+
+The repository retains a validated `.codex-plugin/plugin.json` and declares the stdio server in `.mcp.json`. MCP exposes:
+
+- `recovery_manifest_inspect` for bounded inline manifest validation;
+- `recovery_evidence_verify` for bounded inline JSONL phase/RTO/rollback/stale-plan checks.
+
+Both MCP tools reuse the same validation core as DSH and CLI, but never access the filesystem, dereference object paths, write an artifact or execute a recovery action. Their result explicitly states that object-content verification was not performed. Use the DSH or CLI surface when object hashes and the content-addressed report must be verified against a workspace.
+
 ## Security boundary
 
 All input paths and the output directory must remain under `workspaceRoot`; symlink inputs and symlink output directories are rejected. No shell is spawned, no network is used, no recovery action is executed, and there are no install lifecycle scripts.
@@ -48,6 +57,12 @@ All input paths and the output directory must remain under `workspaceRoot`; syml
 ```sh
 npm test
 npm run check
+npm run smoke:plugin
+npm run smoke:mcp
+
+# Requires a built DeepSeek Harness checkout.
+DSH_CHECKOUT=/path/to/deepseek-harness npm run smoke:dsh
+DSH_CHECKOUT=/path/to/deepseek-harness DSH_HOME=/path/to/isolated-home npm run smoke:web-loader
 ```
 
 MIT

@@ -4,7 +4,7 @@ import { mkdtemp, mkdir, readFile, symlink, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
-import { inspectRecoveryDrill, RecoveryProofError, verifyRecoveryDrill } from '../lib/recovery-proof.mjs'
+import { inspectRecoveryDrill, inspectRecoveryManifestJson, RecoveryProofError, verifyRecoveryDrill, verifyRecoveryEvidenceJsonl } from '../lib/recovery-proof.mjs'
 
 const hash = (value) => createHash('sha256').update(value).digest('hex')
 const event = (scenarioId, seq, phase, status, durationMs, objectIds) => ({ eventVersion: 1, idempotencyKey: `${scenarioId}-${seq}`, scenarioId, seq, phase, status, durationMs, objectIds })
@@ -46,6 +46,7 @@ test('verify emits a read-back-verified content-addressed report', async () => {
   assert.match(result.artifact.path, /^artifacts\/recovery-proof-[a-f0-9]{64}\.json$/)
   const body = await readFile(path.join(root, result.artifact.path))
   assert.equal(hash(body), result.artifact.sha256)
+  assert.equal(result.artifact.verifiedByReadBack, true)
 })
 
 test('discloses stale objects and sequence/RTO failures', async () => {
@@ -75,4 +76,17 @@ test('rejects traversal and symlink evidence', async () => {
   } catch (error) {
     if (error.code !== 'EPERM') throw error
   }
+})
+
+test('inline proof validates structural evidence without filesystem access', async () => {
+  const root = await fixture()
+  const manifestJson = await readFile(path.join(root, 'manifest.json'), 'utf8')
+  const eventsJsonl = await readFile(path.join(root, 'events.jsonl'), 'utf8')
+  const inspect = inspectRecoveryManifestJson(manifestJson)
+  assert.equal(inspect.filesystemAccess, false)
+  assert.equal(inspect.objectCount, 4)
+  const result = verifyRecoveryEvidenceJsonl(manifestJson, eventsJsonl)
+  assert.equal(result.status, 'structurally-verified')
+  assert.equal(result.objectContentVerification, 'not-performed')
+  assert.equal(result.eventCount, 15)
 })
