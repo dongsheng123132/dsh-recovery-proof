@@ -1,6 +1,6 @@
 {
   "name": "dsh-recovery-proof",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Read-only recovery drill evidence for DeepSeek Harness",
   "author": {
     "name": "2Origin",
@@ -9,7 +9,13 @@
   "homepage": "https://github.com/dongsheng123132/dsh-recovery-proof#readme",
   "repository": "https://github.com/dongsheng123132/dsh-recovery-proof",
   "license": "MIT",
-  "keywords": ["deepseek-harness", "recovery", "disaster-recovery", "evidence", "rto"],
+  "keywords": [
+    "deepseek-harness",
+    "recovery",
+    "disaster-recovery",
+    "evidence",
+    "rto"
+  ],
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "DSH Recovery Proof",
@@ -17,7 +23,13 @@
     "longDescription": "Checks explicit recovery drill stages, object hashes, rescue and rollback evidence, RTO thresholds and stale-plan handling, then emits a content-addressed report.",
     "developerName": "hfshfg",
     "category": "Developer Tools",
-    "capabilities": ["Read", "Write", "Audit"],
-    "defaultPrompt": ["Verify this recovery drill manifest and structural evidence without executing a restore."]
+    "capabilities": [
+      "Read",
+      "Write",
+      "Audit"
+    ],
+    "defaultPrompt": [
+      "Verify this recovery drill manifest and structural evidence without executing a restore."
+    ]
   }
 }
